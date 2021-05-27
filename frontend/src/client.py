@@ -1,9 +1,9 @@
 import plyer
 
-from frontend import message
-from frontend.conf import DEFAULT_PROFILE, SOCK_TIMEOUT
-from frontend.client_thread import ClientThread
-from frontend.utils import Map, create_tcp_socket, mnist
+from conf import DEFAULT_PROFILE, SOCK_TIMEOUT
+from . import message
+from .client_thread import ClientThread
+from .utils import Map, create_tcp_socket
 
 
 class Client:
@@ -69,8 +69,3 @@ class Client:
         return f"Client ({self.id})"
 
 
-if __name__ == '__main__':
-    client = Client()
-    print(client.id)
-    print(plyer.battery.status)
-    # print(plyer.temperature.temperature)

@@ -1,10 +1,7 @@
-import time
-
 import numpy as np
 from sklearn.utils import shuffle
 
-from backend.optimizers import LROptimizer
-from backend.utils import get_batch, sigmoid, accuracy
+from .optimizers import LROptimizer
 
 
 class LogisticRegression(object):
@@ -46,23 +43,43 @@ class LogisticRegression(object):
             self.batch_size = m
         nb_batches = (m // self.batch_size)
         j = np.random.choice(nb_batches, replace=False)
-        return get_batch(sX, sy, self.batch_size, j)
+        return self._get_batch(sX, sy, j)
 
     def forward(self, X):
         # a = np.dot(self.W.T, X.T)
         a = X @ self.W
-        return sigmoid(a)
+        return self._sigmoid(a)
 
     def predict(self, X):
-        y_pred = sigmoid(np.dot(self.W.T, X.T))
+        y_pred = self._sigmoid(np.dot(self.W.T, X.T))
         return np.array(list(map(lambda x: 1 if x >= 0.5 else 0, y_pred.flatten())))
 
     def evaluate(self, X, y, optimizer=LROptimizer):
         self.optimizer = optimizer(self.W, self.lr, None)
         predictions = self.forward(X)
         cost = self.optimizer.loss(y, predictions)
-        acc = accuracy(y, predictions)
+        acc = self._accuracy(y, predictions)
         return cost, acc
+
+    def _get_batch(self, X, y, j):
+        begin = j * self.batch_size
+        end = min(begin + self.batch_size, X.shape[0])
+        if end + self.batch_size > X.shape[0]:
+            end = X.shape[0]
+        X_ = X[begin:end, :]
+        y_ = y[begin:end]
+        return X_, y_
+
+    @staticmethod
+    def _sigmoid(z):
+        return 1 / (1 + np.exp(-z))
+
+    @staticmethod
+    def _accuracy(y, predictions):
+        predictions = np.around(predictions)
+        predictions = predictions.reshape(-1)
+        y = y.reshape(-1)
+        return sum(predictions == y) / y.shape[0]
 
 
 if __name__ == '__main__':

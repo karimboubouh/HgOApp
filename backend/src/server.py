@@ -1,16 +1,14 @@
 import socket
 import time
-from copy import deepcopy
 
 import numpy as np
-from tqdm import tqdm
 
-import backend.aggregators as GARs
-from backend import message
-from backend.conf import SOCK_TIMEOUT, TCP_SOCKET_SERVER_LISTEN, MIN_ACTIVE_WORKERS, SERVER_PORT, SERVER_HOST
-from backend.device_connection import DeviceConnection
-from backend.models import LogisticRegression
-from backend.utils import log, create_tcp_socket, input_size, load_params, Map, chunks, load_test_dataset
+from conf import SOCK_TIMEOUT, TCP_SOCKET_SERVER_LISTEN, MIN_ACTIVE_WORKERS, SERVER_PORT, SERVER_HOST
+from . import aggregators as GARs
+from . import message
+from .device_connection import DeviceConnection
+from .models import LogisticRegression
+from .utils import log, create_tcp_socket, input_size, load_params, Map, chunks, load_test_dataset
 
 
 class Server:

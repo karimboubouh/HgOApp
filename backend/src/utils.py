@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 from termcolor import cprint
 
-from backend.conf import ROUNDS, FRAC, GAR, LEARNING_RATE, BLOCK_SIZE
+from conf import ROUNDS, FRAC, GAR, LEARNING_RATE, BLOCK_SIZE, F, ATTACK
 
 
 class Map(dict):
@@ -77,7 +77,7 @@ def create_tcp_socket():
 
 def load_params(params):
     defaults = Map(
-        {'rounds': ROUNDS, 'frac': FRAC, 'lr': LEARNING_RATE, 'gar': GAR, 'f': 0, 'attack': "No",
+        {'rounds': ROUNDS, 'frac': FRAC, 'lr': LEARNING_RATE, 'gar': GAR, 'f': F, 'attack': ATTACK,
          'block_size': BLOCK_SIZE})
     if isinstance(params, Map):
         return Map(dict(defaults, **params))
@@ -116,32 +116,6 @@ def chunks(l, n):
         return output
     else:
         return None
-
-
-def sigmoid(z):
-    return 1 / (1 + np.exp(-z))
-
-
-def sigmoid_prime(z):
-    """Derivative of the sigmoid function."""
-    return sigmoid(z) * (1 - sigmoid(z))
-
-
-def get_batch(X, y, batch_size, j):
-    begin = j * batch_size
-    end = min(begin + batch_size, X.shape[0])
-    if end + batch_size > X.shape[0]:
-        end = X.shape[0]
-    X_ = X[begin:end, :]
-    y_ = y[begin:end]
-    return X_, y_
-
-
-def accuracy(y, predictions):
-    predictions = np.around(predictions)
-    predictions = predictions.reshape(-1)
-    y = y.reshape(-1)
-    return sum(predictions == y) / y.shape[0]
 
 
 def mnist(path, binary=True):

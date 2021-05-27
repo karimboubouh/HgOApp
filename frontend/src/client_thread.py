@@ -1,13 +1,13 @@
 import pickle
 import socket
 import traceback
-import numpy as np
 from threading import Thread
 
+import numpy as np
 from kivymd.toast import toast
 
-from frontend import message
-from frontend.utils import adaptive_batch_size
+from . import message
+from .utils import adaptive_batch_size
 
 
 class ClientThread(Thread):
@@ -39,13 +39,13 @@ class ClientThread(Thread):
                     else:
                         toast(f"Unknown type of message: {data['mtype']}.")
             except pickle.UnpicklingError as e:
-                toast(f"Corrupted message")
+                toast(f"Corrupted message: {e}")
                 traceback.print_exc()
-            except socket.timeout as e:
+            except socket.timeout:
                 pass
             except Exception as e:
                 self.terminate = True
-                toast(f"Socket Exception\n{e}")
+                toast(f"Socket Exception: {e}")
                 traceback.print_exc()
 
         self.sock.close()

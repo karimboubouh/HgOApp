@@ -8,9 +8,8 @@ from kivymd.toast import toast
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.filemanager import MDFileManager
 
-from frontend.conf import DEFAULT_NB_SAMPLES, DEFAULT_PROFILE, SERVER_HOST, SERVER_PORT
-from frontend.utils import sample_data, Map, mnist
-from frontend.ui_helpers import UIToggleButton
+from conf import DEFAULT_NB_SAMPLES, DEFAULT_PROFILE, SERVER_HOST, SERVER_PORT
+from src.utils import sample_data, Map, mnist
 
 
 class ConfScreen(Screen):
@@ -89,7 +88,7 @@ class ConfScreen(Screen):
             self.manager.client.train = sample_data(full_train, self.nb_samples)
             self.dialog.text = f"Data loaded successfully"
             return True
-        except TypeError as e:
+        except TypeError:
             self.dialog.text = f"No dataset have been selected"
             return False
 

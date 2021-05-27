@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import ScreenManager
 
-from frontend.client import Client
+from src.client import Client
 
 
 class ScreenManagement(ScreenManager):

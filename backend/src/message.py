@@ -1,7 +1,8 @@
 import pickle
+
 import numpy as np
 
-from backend.utils import log
+from .utils import log
 
 DISCONNECT = 0
 TRAIN_JOIN = 1

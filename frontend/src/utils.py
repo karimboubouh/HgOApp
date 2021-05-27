@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 from kivymd.toast import toast
 
-from frontend.conf import TCP_SOCKET_BUFFER_SIZE, LOW_BATCH_SIZE, MOD_BATCH_SIZE, POW_BATCH_SIZE, DEFAULT_BATCH_SIZE
+from conf import LOW_BATCH_SIZE, MOD_BATCH_SIZE, POW_BATCH_SIZE, DEFAULT_BATCH_SIZE
 
 
 class Map(dict):

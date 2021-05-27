@@ -5,9 +5,10 @@ __pycache__/
 .DS_Store
 Trash/
 out/
-playgrund/
-old/
-backend/datasets/*
+backend/datasets/mnist.data
+.idea/
+backend/.idea/
+frontend/.idea/
 
 # C extensions
 *.so

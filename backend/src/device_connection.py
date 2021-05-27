@@ -3,8 +3,8 @@ import socket
 import traceback
 from threading import Thread
 
-from backend import message
-from backend.utils import log
+from . import message
+from .utils import log
 
 
 class DeviceConnection(Thread):

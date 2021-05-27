@@ -1,7 +1,5 @@
 import pickle
 
-import plyer
-
 DISCONNECT = 0
 TRAIN_JOIN = 1
 TRAIN_START = 2

@@ -1,16 +1,14 @@
-from kivymd.app import MDApp
 from kivy.lang.builder import Builder
-from kivy.core.window import Window
+from kivymd.app import MDApp
 
-from frontend.screens import *
-
-Window.size = (336, 600)
+from src.screens import *
+# Window.size = (336, 600)
 
 
 class SmartFedApp(MDApp):
 
     def build(self):
-        return Builder.load_file('template.kv')
+        return Builder.load_file('src/template.kv')
 
 
 SmartFedApp().run()
