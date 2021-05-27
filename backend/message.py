@@ -1,0 +1,47 @@
+import pickle
+import numpy as np
+
+from backend.utils import log
+
+DISCONNECT = 0
+TRAIN_JOIN = 1
+TRAIN_START = 2
+TRAIN_INFO = 3
+TRAIN_STOP = 5
+
+
+def join_train(model, params):
+    if model is None:
+        exit(0)
+    return pickle.dumps({
+        'mtype': TRAIN_JOIN,
+        'data': {'model': model, 'lr': params.lr},
+    })
+
+
+def start_round(block, rounds=0, prev_eval=None):
+    return pickle.dumps({
+        'mtype': TRAIN_START,
+        'data': {'block': block, 'rounds': rounds, 'prev_eval': prev_eval},
+    })
+
+
+def stop_train(server):
+    battery = server.battery_usage[-server.status.active]/server.status.active
+    data = {
+        'performance': server.performance[-1],
+        'battery_usage': battery,
+        'iteration_cost': np.mean(server.iteration_cost)
+    }
+    log('success', data)
+    return pickle.dumps({
+        'mtype': TRAIN_STOP,
+        'data': data,
+    })
+
+
+def disconnect(block):
+    return pickle.dumps({
+        'mtype': DISCONNECT,
+        'data': {},
+    })
