@@ -23,7 +23,7 @@ def join_train(model, params):
 def start_round(W, block, rounds=0, prev_eval=None):
     return pickle.dumps({
         'mtype': TRAIN_START,
-        'data': {'W': W, 'block': block, 'rounds': rounds, 'prev_eval': prev_eval},
+        'data': {'block': block, 'rounds': rounds, 'prev_eval': prev_eval},
     })
 
 

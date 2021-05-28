@@ -82,7 +82,3 @@ class LogisticRegression(object):
         predictions = predictions.reshape(-1)
         y = y.reshape(-1)
         return sum(predictions == y) / y.shape[0]
-
-
-if __name__ == '__main__':
-    pass

@@ -107,7 +107,7 @@ class Server:
             self.current_block = self.get_block()
             # broadcast round config
             time.sleep(.2)
-            self.broadcast(message.start_round(self.model.W, self.current_block))
+            self.broadcast(message.start_round(self.current_block))
 
     def init_new_round(self, prev_eval=None):
         # verify stop condition
@@ -115,7 +115,7 @@ class Server:
             # choose current block of indices to update
             self.current_block = self.get_block()
             # broadcast round config
-            self.broadcast(message.start_round(self.model.W, self.current_block, self.params.rounds, prev_eval))
+            self.broadcast(message.start_round(self.current_block, self.params.rounds, prev_eval))
         else:
             # broadcast stop training
             log('success', "Training finished")
