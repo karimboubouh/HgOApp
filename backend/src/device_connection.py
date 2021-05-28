@@ -22,8 +22,9 @@ class DeviceConnection(Thread):
             try:
                 buffer = b''
                 while buffer == b'':
-                    buffer = self.sock.recv(102400)
+                    buffer = self.sock.recv(8192)  # 165536
                 if buffer:
+                    print(f"Server got buffer: {len(buffer)}")
                     data = pickle.loads(buffer)
                     if data and data['mtype'] == message.TRAIN_INFO:
                         self.handle_epoch(data['data'])
@@ -32,7 +33,7 @@ class DeviceConnection(Thread):
                     else:
                         log('error', f"{self.server.name}: Unknown type of message: {data['mtype']}.")
             except pickle.UnpicklingError as e:
-                log('error', f"{self.server.name}: Corrupted message")
+                log('error', f"{self.server.name}: Corrupted message : {e}")
             except socket.timeout:
                 pass
             except Exception as e:

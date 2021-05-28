@@ -25,10 +25,11 @@ class ClientThread(Thread):
             try:
                 buffer = b''
                 while buffer == b'':
-                    buffer = self.sock.recv(102400)
+                    buffer = self.sock.recv(8192)  # 165536
                 # print("buffer: ", len(buffer))
                 if buffer:
                     data = pickle.loads(buffer)
+                    print(f"Server got buffer: {len(buffer)}")
                     if data and data['mtype'] == message.TRAIN_JOIN:
                         self.join_train(data['data'])
                     elif data and data['mtype'] == message.TRAIN_START:
@@ -72,12 +73,6 @@ class ClientThread(Thread):
             self.client.model = LogisticRegression(features, lr=self.client.params.lr)
             self.client.model.batch_size = adaptive_batch_size(self.client.profile)
             self.client.log(log="Joined training, waiting to start ...")
-
-            print(data['model_name'])
-            print(self.client.model)
-            print(self.client.model.batch_size)
-            print(self.client.model.lr)
-
         else:
             toast(f"Model {data['model_name']} not supported.")
             exit(0)
