@@ -13,7 +13,8 @@ from .utils import log, create_tcp_socket, input_size, load_params, Map, chunks,
 
 class Server:
 
-    def __init__(self, name="SFServer", model_name="LR", dataset="mnist", params=None, host=SERVER_HOST, port=SERVER_PORT):
+    def __init__(self, name="SFServer", model_name="LR", dataset="mnist", params=None, host=SERVER_HOST,
+                 port=SERVER_PORT):
         self.name = name
         self.host = host
         self.port = port
@@ -106,7 +107,7 @@ class Server:
             self.current_block = self.get_block()
             # broadcast round config
             time.sleep(.2)
-            self.broadcast(message.start_round(self.current_block))
+            self.broadcast(message.start_round(self.model.W, self.current_block))
 
     def init_new_round(self, prev_eval=None):
         # verify stop condition

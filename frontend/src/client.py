@@ -44,7 +44,7 @@ class Client:
         self.sock.close()
 
     def local_train(self, data):
-        self.model.W = data['block']
+        self.model.W = data['W']
         self.grads, gtime = self.model.one_epoch(self.train.data, self.train.targets, data['block'])
         battery_usage = plyer.battery.status['percentage'] - self.battery_start
         self.listener.send(message.train_info(self.grads, gtime, battery_usage))
