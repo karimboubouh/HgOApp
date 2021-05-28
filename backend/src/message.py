@@ -20,10 +20,10 @@ def join_train(model, params):
     })
 
 
-def start_round(block, rounds=0, prev_eval=None):
+def start_round(W, block, rounds=0, prev_eval=None):
     return pickle.dumps({
         'mtype': TRAIN_START,
-        'data': {'block': block, 'rounds': rounds, 'prev_eval': prev_eval},
+        'data': {'W': W, 'block': block, 'rounds': rounds, 'prev_eval': prev_eval},
     })
 
 
@@ -41,7 +41,7 @@ def stop_train(server):
     })
 
 
-def disconnect(block):
+def disconnect():
     return pickle.dumps({
         'mtype': DISCONNECT,
         'data': {},
