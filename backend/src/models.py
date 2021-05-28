@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.utils import shuffle
+# from sklearn.utils import shuffle
 
 from .optimizers import LROptimizer
 
@@ -25,7 +25,8 @@ class LogisticRegression(object):
         if self.batch_size > 0:
             features, labels = self.get_random_batch(X, y)
         elif self.batch_size == 0:
-            features, labels = shuffle(X, y)
+            # features, labels = shuffle(X, y)
+            features, labels = X, y
         else:
             raise
         # Foreword step
@@ -36,7 +37,8 @@ class LogisticRegression(object):
         return grads, gtime
 
     def get_random_batch(self, X, y):
-        sX, sy = shuffle(X, y)
+        # sX, sy = shuffle(X, y)
+        sX, sy = X, y
         m = X.shape[0]
 
         if m < self.batch_size:
