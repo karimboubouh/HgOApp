@@ -7,7 +7,8 @@ import numpy as np
 from kivymd.toast import toast
 
 from . import message
-from .utils import adaptive_batch_size
+from .models import LogisticRegression
+from .utils import adaptive_batch_size, input_size
 
 
 class ClientThread(Thread):
@@ -66,9 +67,20 @@ class ClientThread(Thread):
     def join_train(self, data):
         self.client.params.lr = data.get('lr', self.client.params.lr)
         self.client.model = data.get('model', None)
-        self.client.model.lr = self.client.params.lr
-        self.client.model.batch_size = adaptive_batch_size(self.client.profile)
-        self.client.log(log="Joined training, waiting to start ...")
+        if data['model_name'] == "LR":
+            features = input_size(data['model_name'], "mnist")
+            self.client.model = LogisticRegression(features, lr=self.client.params.lr)
+            self.client.model.batch_size = adaptive_batch_size(self.client.profile)
+            self.client.log(log="Joined training, waiting to start ...")
+
+            print(data['model_name'])
+            print(self.client.model)
+            print(self.client.model.batch_size)
+            print(self.client.model.lr)
+
+        else:
+            toast(f"Model {data['model_name']} not supported.")
+            exit(0)
 
     def stop_train(self, data):
         # go to predict screen

@@ -11,10 +11,10 @@ package.domain = org.karim
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,ttf
+source.include_exts = py,png,jpg,jpeg,ttf,kv,json,txt
 
 # (list) List of inclusions using pattern matching
-#source.include_patterns = images/*,images/*.png
+source.include_patterns = images/*,images/*.png
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
@@ -34,9 +34,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy==2.0.0,plyer,numpy,pillow,joblib,https://github.com/kivymd/KivyMD/archive/master.zip,sdl2_ttf
-
-# git+https://github.com/HeaTTheatR/KivyMD.git,sdl2_ttf==2.0.15
+requirements = python3,kivy==2.0.0,git+https://github.com/HeaTTheatR/KivyMD.git,sdl2_ttf==2.0.15,plyer,numpy,pillow,joblib,sklearn
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -99,10 +97,10 @@ android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 29
+android.api = 28
 
 # (int) Minimum API your APK will support.
-#android.minapi = 21
+android.minapi = 21
 
 # (int) Android SDK version to use
 #android.sdk = 20
@@ -134,7 +132,7 @@ android.api = 29
 # agreements. This is intended for automation only. If set to False,
 # the default, you will be shown the license when first running
 # buildozer.
-# android.accept_sdk_license = False
+android.accept_sdk_license = True
 
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.renpy.android.PythonActivity

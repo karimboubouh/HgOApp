@@ -9,7 +9,7 @@ from .utils import Map, create_tcp_socket
 class Client:
 
     def __init__(self, manager, profile=DEFAULT_PROFILE, train=None, test=None):
-        self.id = plyer.uniqueid.id.decode("utf-8")
+        self.id = plyer.uniqueid.id  # .decode("utf-8")
         self.manager = manager
         self.profile = profile
         self.sock = None
@@ -67,5 +67,3 @@ class Client:
 
     def __str__(self):
         return f"Client ({self.id})"
-
-

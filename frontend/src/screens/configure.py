@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.filemanager import MDFileManager
+from kivy.utils import platform
 
 from conf import DEFAULT_NB_SAMPLES, DEFAULT_PROFILE, SERVER_HOST, SERVER_PORT
 from src.utils import sample_data, Map, mnist
@@ -20,7 +21,7 @@ class ConfScreen(Screen):
         self.profile = DEFAULT_PROFILE
         self.host = SERVER_HOST
         self.port = SERVER_PORT
-        self.dataset_path = "/Users/mnist.data"
+        self.dataset_path = ""
         super(ConfScreen, self).__init__(**kwargs)
         Clock.schedule_once(self.init, 1)
         self.file_manager = MDFileManager(
@@ -34,7 +35,8 @@ class ConfScreen(Screen):
         self.ids.samples_input.text = str(self.nb_samples)
 
     def file_manager_open(self):
-        self.file_manager.show('/')
+        path_root = '/storage/emulated/0/' if platform == 'android' else '/'
+        self.file_manager.show(path_root)
 
     def select_path(self, path):
         self.file_manager.close()

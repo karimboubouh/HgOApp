@@ -1,5 +1,7 @@
 import socket
+import _multiprocessing
 
+_multiprocessing.sem_unlink = None
 import joblib
 import numpy as np
 from kivymd.toast import toast
@@ -51,7 +53,6 @@ def create_tcp_socket():
     return sock
 
 
-
 def mnist(path, binary=True):
     try:
         open(path, 'r')
@@ -94,3 +95,22 @@ def adaptive_batch_size(profile):
         return POW_BATCH_SIZE
     else:
         return DEFAULT_BATCH_SIZE
+
+
+def input_size(model: str, dataset: str):
+    if model.upper() in ["LR", "LN", "SVM"]:
+        if dataset.lower() == "mnist":
+            return 784
+        elif dataset.lower() == "boston":
+            return 14
+        elif dataset.lower() == "phishing":
+            return 68
+        else:
+            log('error', f"Unknown dataset {dataset}")
+            exit(0)
+    else:
+        if dataset.lower() == "mnist":
+            return [784, 30, 10]
+        else:
+            log('error', f"Unsupported or Unknown dataset {dataset}")
+            exit(0)

@@ -16,7 +16,7 @@ def join_train(model, params):
         exit(0)
     return pickle.dumps({
         'mtype': TRAIN_JOIN,
-        'data': {'model': model, 'lr': params.lr},
+        'data': {'model_name': model, 'lr': params.lr},
     })
 
 

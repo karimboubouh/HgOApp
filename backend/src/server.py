@@ -13,14 +13,15 @@ from .utils import log, create_tcp_socket, input_size, load_params, Map, chunks,
 
 class Server:
 
-    def __init__(self, name="SFServer", model="LR", dataset="mnist", params=None, host=SERVER_HOST, port=SERVER_PORT):
+    def __init__(self, name="SFServer", model_name="LR", dataset="mnist", params=None, host=SERVER_HOST, port=SERVER_PORT):
         self.name = name
         self.host = host
         self.port = port
         self.sock = None
         self.terminate = False
         self.status = Map({'active': 0, 'train': False, 'aggregate': False, 'started': False})
-        self.model = model
+        self.model_name = model_name
+        self.model = None
         self.X = None
         self.y = None
         self.workers = []
@@ -33,7 +34,7 @@ class Server:
         self.iteration_cost = []
         self.byz_indices = []
         self.params = load_params(params)
-        self.input_size = input_size(model, dataset)
+        self.input_size = input_size(model_name, dataset)
         self.init()
 
     def init(self):
@@ -50,7 +51,7 @@ class Server:
                     device_thread = DeviceConnection(self, conn, address)
                     device_thread.start()
                     # Send model and configuration
-                    device_thread.send(message.join_train(self.model, self.params))
+                    device_thread.send(message.join_train(self.model_name, self.params))
                     if self.status.started:
                         self.tmp_workers.append(device_thread)
                     else:
@@ -168,12 +169,12 @@ class Server:
         self.sock.listen(TCP_SOCKET_SERVER_LISTEN)
 
     def _init_model(self):
-        if self.model == 'LR':
+        if self.model_name == 'LR':
             self.X, self.y = load_test_dataset("mnist")
             # print(f"self.X == {self.X.shape}, self.y == {self.y.shape}")
             self.model = LogisticRegression(self.input_size, lr=self.params.lr)
         else:
-            log('error', f"Model {self.model} not supported.")
+            log('error', f"Model {self.model_name} not supported.")
             exit(0)
 
     def _init_params(self):
