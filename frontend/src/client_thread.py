@@ -2,6 +2,7 @@ import pickle
 import socket
 import traceback
 from threading import Thread
+from struct import pack, unpack
 
 import numpy as np
 from kivymd.toast import toast
@@ -23,13 +24,14 @@ class ClientThread(Thread):
         # Wait for messages from server
         while not self.terminate:
             try:
+                (length,) = unpack('>Q', self.sock.recv(8))
                 buffer = b''
-                while buffer == b'':
-                    buffer = self.sock.recv(8192)  # 165536
-                # print("buffer: ", len(buffer))
+                while len(buffer) < length:
+                    to_read = length - len(buffer)
+                    buffer += self.sock.recv(4096 if to_read > 4096 else to_read)
+
                 if buffer:
                     data = pickle.loads(buffer)
-                    print(f"Server got buffer: {len(buffer)}")
                     if data and data['mtype'] == message.TRAIN_JOIN:
                         self.join_train(data['data'])
                     elif data and data['mtype'] == message.TRAIN_START:
@@ -55,6 +57,8 @@ class ClientThread(Thread):
 
     def send(self, msg):
         try:
+            length = pack('>Q', len(msg))
+            self.sock.sendall(length)
             self.sock.sendall(msg)
         except socket.error as e:
             self.terminate = True

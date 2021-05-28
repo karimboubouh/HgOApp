@@ -2,6 +2,7 @@ import pickle
 import socket
 import traceback
 from threading import Thread
+from struct import pack, unpack
 
 from . import message
 from .utils import log
@@ -20,11 +21,13 @@ class DeviceConnection(Thread):
         # Wait for messages from device
         while not self.terminate:
             try:
+                (length,) = unpack('>Q', self.sock.recv(8))
                 buffer = b''
-                while buffer == b'':
-                    buffer = self.sock.recv(8192)  # 165536
+                while len(buffer) < length:
+                    to_read = length - len(buffer)
+                    buffer += self.sock.recv(4096 if to_read > 4096 else to_read)
+
                 if buffer:
-                    print(f"Server got buffer: {len(buffer)}")
                     data = pickle.loads(buffer)
                     if data and data['mtype'] == message.TRAIN_INFO:
                         self.handle_epoch(data['data'])
@@ -49,6 +52,8 @@ class DeviceConnection(Thread):
 
     def send(self, msg):
         try:
+            length = pack('>Q', len(msg))
+            self.sock.sendall(length)
             self.sock.sendall(msg)
         except socket.error as e:
             self.terminate = True
