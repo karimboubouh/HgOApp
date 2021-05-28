@@ -114,7 +114,7 @@ class Server:
             # choose current block of indices to update
             self.current_block = self.get_block()
             # broadcast round config
-            self.broadcast(message.start_round(self.current_block, self.params.rounds, prev_eval))
+            self.broadcast(message.start_round(self.model.W, self.current_block, self.params.rounds, prev_eval))
         else:
             # broadcast stop training
             log('success', "Training finished")
