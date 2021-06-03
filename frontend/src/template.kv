@@ -115,15 +115,35 @@ ScreenManagement:
             line_height: 1.5
             size_hint: 1, 2
             padding:[20,0]
-        MDTextField:
-            id: samples_input
+        # MDTextField:
+        #     id: samples_input
+        #     spacing: "40dp"
+        #     hint_text: "Number of samples"
+        #     input_filter: 'int'
+        #     mode: "rectangle"
+        #     size_hint: .6, None
+        #     halign: "center"
+        #     pos_hint: {"center_x": 0.5, "center_y": .8}
+        MDBoxLayout:
+            orientation: "horizontal"
             spacing: "40dp"
-            hint_text: "Number of samples"
-            input_filter: 'int'
-            mode: "rectangle"
-            size_hint: .6, None
-            halign: "center"
-            pos_hint: {"center_x": 0.5, "center_y":.8}
+            padding: [40, 10, 40, 20]
+            MDTextField:
+                id: samples_input
+                hint_text: "Number of samples"
+                input_filter: 'int'
+                mode: "rectangle"
+                size_hint: .6, None
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "center_y":.8}
+            MDTextField:
+                id: battery_capacity
+                hint_text: "Battery capacity"
+                input_filter: 'int'
+                mode: "rectangle"
+                size_hint: .6, None
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "center_y":.8}
         MDLabel:
             size_hint: 1, 1
         MDRaisedButton:

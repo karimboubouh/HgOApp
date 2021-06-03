@@ -3,6 +3,7 @@ import _multiprocessing
 
 _multiprocessing.sem_unlink = None
 import joblib
+import plyer
 import numpy as np
 from kivymd.toast import toast
 
@@ -114,3 +115,9 @@ def input_size(model: str, dataset: str):
         else:
             log('error', f"Unsupported or Unknown dataset {dataset}")
             exit(0)
+
+
+def mah(battery_start, battery_capacity):
+    level = battery_start - plyer.battery.status['percentage']
+    # print(f"battery_start = {battery_start} | level = {plyer.battery.status['percentage']} | mah={(level * battery_capacity) / 100}")
+    return (level * battery_capacity) / 100

@@ -1,9 +1,9 @@
 import plyer
 
-from conf import DEFAULT_PROFILE, SOCK_TIMEOUT
+from conf import DEFAULT_PROFILE, SOCK_TIMEOUT, DEFAULT_BATTERY_CAPACITY
 from . import message
 from .client_thread import ClientThread
-from .utils import Map, create_tcp_socket
+from .utils import Map, create_tcp_socket, mah
 
 
 class Client:
@@ -20,6 +20,7 @@ class Client:
         self.iteration_cost = []
         self.train = train
         self.test = test
+        self.battery_capacity = DEFAULT_BATTERY_CAPACITY
         self.battery_start = plyer.battery.status['percentage']
         # default params
         self.params = Map({
@@ -46,13 +47,13 @@ class Client:
     def local_train(self, data):
         self.model.W = data['W']
         self.grads, gtime = self.model.one_epoch(self.train.data, self.train.targets, data['block'])
-        battery_usage = plyer.battery.status['percentage'] - self.battery_start
+        battery_usage = mah(self.battery_start, self.battery_capacity)
         self.listener.send(message.train_info(self.grads, gtime, battery_usage))
         self.iteration_cost.append(gtime)
         self.log(
             log=f"Training... | Remaining rounds: {data['rounds']}",
-            cpu=round(gtime, 10),
-            energy=round(battery_usage, 10),
+            cpu=round(gtime, 8),
+            energy=round(battery_usage, 8),
             acc=data['prev_eval']
         )
 

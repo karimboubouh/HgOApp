@@ -9,7 +9,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.filemanager import MDFileManager
 from kivy.utils import platform
 
-from conf import DEFAULT_NB_SAMPLES, DEFAULT_PROFILE, SERVER_HOST, SERVER_PORT
+from conf import DEFAULT_NB_SAMPLES, DEFAULT_PROFILE, SERVER_HOST, SERVER_PORT, DEFAULT_BATTERY_CAPACITY
 from src.utils import sample_data, Map, mnist
 
 
@@ -18,10 +18,11 @@ class ConfScreen(Screen):
     def __init__(self, **kwargs):
         self.dialog = None
         self.nb_samples = DEFAULT_NB_SAMPLES
+        self.battery_capacity = DEFAULT_BATTERY_CAPACITY
         self.profile = DEFAULT_PROFILE
         self.host = SERVER_HOST
         self.port = SERVER_PORT
-        self.dataset_path = ""
+        self.dataset_path = "/Users/mnist.data"
         super(ConfScreen, self).__init__(**kwargs)
         Clock.schedule_once(self.init, 1)
         self.file_manager = MDFileManager(
@@ -33,6 +34,7 @@ class ConfScreen(Screen):
         self.ids.server_host.text = self.host
         self.ids.server_port.text = str(self.port)
         self.ids.samples_input.text = str(self.nb_samples)
+        self.ids.battery_capacity.text = str(self.battery_capacity)
 
     def file_manager_open(self):
         path_root = '/storage/emulated/0/' if platform == 'android' else '/'
@@ -55,6 +57,7 @@ class ConfScreen(Screen):
             self.host = self.ids['server_host'].text
             self.port = int(self.ids['server_port'].text)
             self.nb_samples = int(self.ids['samples_input'].text)
+            self.battery_capacity = int(self.ids['battery_capacity'].text)
             if self.ids['mod_cap'].state == "down":
                 self.profile = "mod"
             elif self.ids['pow_cap'].state == "down":
@@ -66,6 +69,7 @@ class ConfScreen(Screen):
             self.profile = DEFAULT_PROFILE
 
     def init_train(self):
+        self.manager.client.battery_capacity = self.battery_capacity
         self.dialog.open()
         if not self.load_data():
             sleep(.5)

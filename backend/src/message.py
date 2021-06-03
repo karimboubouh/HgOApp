@@ -28,7 +28,7 @@ def start_round(W, block, rounds=0, prev_eval=None):
 
 
 def stop_train(server):
-    battery = server.battery_usage[-server.status.active] / server.status.active
+    battery = np.sum(server.battery_usage[-server.status.active])
     data = {
         'performance': server.performance[-1],
         'battery_usage': battery,

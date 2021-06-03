@@ -5,11 +5,12 @@ from threading import Thread
 from struct import pack, unpack
 
 import numpy as np
+import plyer
 from kivymd.toast import toast
 
 from . import message
 from .models import LogisticRegression
-from .utils import adaptive_batch_size, input_size
+from .utils import adaptive_batch_size, input_size, mah
 
 
 class ClientThread(Thread):
@@ -85,7 +86,10 @@ class ClientThread(Thread):
         # go to predict screen
         self.client.log(log="Training finished.")
         self.client.manager.current = 'predict'
+        battery_usage = mah(self.client.battery_start, self.client.battery_capacity)
         summary = f"Training finished.\nAccuracy: {data['performance'][1]}\nLoss: {data['performance'][0]}\n" \
-                  f"Battery usage: {data['battery_usage']}\nGlobal iteration cost: {round(data['iteration_cost'], 8)}" \
-                  f"\nLocal iteration cost: {round(float(np.mean(self.client.iteration_cost)), 8)}"
+                  f"Local battery usage: {round(battery_usage, 4)} mAh\n" \
+                  f"Global battery usage: {round(data['battery_usage'], 4)}mAh\n" \
+                  f"Local iteration cost: {round(float(np.mean(self.client.iteration_cost)), 4)}\n" \
+                  f"Global iteration cost: {round(data['iteration_cost'], 4)}"
         self.client.manager.get_screen("predict").ids.train_summary.text = summary
