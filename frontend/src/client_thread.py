@@ -88,8 +88,8 @@ class ClientThread(Thread):
         self.client.manager.current = 'predict'
         battery_usage = mah(self.client.battery_start, self.client.battery_capacity)
         summary = f"Training finished.\nAccuracy: {data['performance'][1]}\nLoss: {data['performance'][0]}\n" \
-                  f"Local battery usage: {round(battery_usage, 4)} mAh\n" \
+                  f"Local battery usage: {round(battery_usage, 4)}mAh\n" \
                   f"Global battery usage: {round(data['battery_usage'], 4)}mAh\n" \
-                  f"Local iteration cost: {round(float(np.mean(self.client.iteration_cost)), 4)} s\n" \
-                  f"Global iteration cost: {round(data['iteration_cost'], 4)} s"
+                  f"Local iteration cost: {round(float(np.mean(self.client.iteration_cost)), 4)}s\n" \
+                  f"Global iteration cost: {round(data['iteration_cost'], 4)}s"
         self.client.manager.get_screen("predict").ids.train_summary.text = summary
