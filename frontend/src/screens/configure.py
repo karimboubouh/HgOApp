@@ -22,7 +22,7 @@ class ConfScreen(Screen):
         self.profile = DEFAULT_PROFILE
         self.host = SERVER_HOST
         self.port = SERVER_PORT
-        self.dataset_path = "/Users/mnist.data"
+        self.dataset_path = ""
         super(ConfScreen, self).__init__(**kwargs)
         Clock.schedule_once(self.init, 1)
         self.file_manager = MDFileManager(
