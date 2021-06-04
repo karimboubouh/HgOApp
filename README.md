@@ -8,9 +8,9 @@
 
 The `backend` folder contains the code for the parameter server (PS). It can be deployed on a local machine or in the cloud with a public IP address.
 
-The PS accepts connections and disconnections from any device at any time. Each connected device is sent the machine learning model with current parameters. Once a new round it started the PS sends the model parameters and the selected block for training in the next round.
+The PS accepts connections and disconnections from any device at any time. Each connected device receives the machine learning model with current parameters. Once a new round is started, the PS sends the model parameters and the selected block to be updated in the next round.
 
-A disconnected or stale device are considered as new devices and receive the most recent model parameters once they are connected again.
+A disconnected or a stale device is considered as a new device, and receives the most recent model parameters once it is connected again.
 
 #### Install python requirements
 
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 #### Congifure and run the PS
 
-To configure the Parameter Server update the configuration file `backend/config.py`. the default parameters are: 
+To configure the Parameter Server, update the configuration file `backend/config.py`. The default parameters are: 
 
 ```
 # file: backend/config.py
@@ -35,13 +35,13 @@ F = 0
 ATTACK = "No"
 MIN_ACTIVE_WORKERS = 2
 ```
-Download the `MNIST` dataset for model evaluation and move it the the datasets folder `backend/datasets`.
+Download the `MNIST` dataset for model evaluation and move it to the datasets folder `backend/datasets`.
 
 `MNIST` download link: https://mega.nz/file/3aA2VLLD#vdW4CjZg3TRqD2qECdGgLZ9Iu8N0w2EAobQV298Hqi8
 
 
 
-To run the Parameter Server execute the following commands:
+To run the Parameter Server, execute the following commands:
 
 ```
 cd backend
@@ -52,7 +52,7 @@ python main.py
 
 ### **Frontend**: Android application.
 
-The smartphone implementation of SmartFed uses the python cross platform library kivy (\url{https://kivy.org}). Our code is optimized to deploy the Android version. However, the application is cross platform and can be deployed also on IOS, Linux, macOS and Windows with the appropriate modifications. The application works on Android version 7+ and only requires storage permission to access the smartphone local dataset.
+The smartphone implementation of SmartFed uses the python cross platform library kivy (\url{https://kivy.org}). Our code is optimized to deploy the Android version. However, the application is cross platform and can also be deployed on IOS, Linux, macOS and Windows, with the appropriate modifications. The application works on Android version 7+ and only requires storage permission to access the smartphone local dataset.
 
 #### Build the android application
 Install buildozer: https://buildozer.readthedocs.io/en/latest/installation.html
