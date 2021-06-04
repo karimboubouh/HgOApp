@@ -78,8 +78,7 @@ Once configured, the application will receive the selected model from the PS and
 
 #### Screenshots
 
-<img src="/Users/boubouhkarim/Downloads/welcome.jpeg" alt="welcome" style="zoom:25%;" /><img src="/Users/boubouhkarim/Downloads/configure.jpeg" alt="configure" style="zoom:25%;" /><img src="/Users/boubouhkarim/Downloads/train.jpeg" alt="train" style="zoom:25%;" /><img src="/Users/boubouhkarim/Downloads/result.jpeg" alt="result" style="zoom:25%;" />
-
+<img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3b7lw9j30u01t0q6f.jpg" alt="welcome" style="zoom:25%;" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3q2lptj30u01t0q8w.jpg" alt="configure" style="zoom:25%;" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3ykheaj30u01t0tbh.jpg" alt="train" style="zoom:25%;" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q43qb1gj60u01t0jvo02.jpg" alt="result" style="zoom:25%;" />
 
 
 
