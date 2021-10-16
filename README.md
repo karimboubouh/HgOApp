@@ -1,6 +1,8 @@
-# SmartFed: Democratizing Federated Learning
+# Democratizing Machine Learning
 
-> This repository contains the code for the Android implementation of the SmartFed algorithm. This Application is for demonstration purposes and it is by no means built for production usage.
+## Resilient Distributed Learning with Heterogeneous Participants
+
+> This repository contains the code for the Android implementation of the HgO algorithm. This Application is for demonstration purposes and it is by no means built for production usage.
 
 ---
 
@@ -37,7 +39,7 @@ MIN_ACTIVE_WORKERS = 2
 ```
 Download the `MNIST` dataset for model evaluation and move it to the datasets folder `backend/datasets`.
 
-`MNIST` download link: https://mega.nz/file/3aA2VLLD#vdW4CjZg3TRqD2qECdGgLZ9Iu8N0w2EAobQV298Hqi8
+`MNIST` download link: http://tiny.cc/mnist 
 
 
 
@@ -52,7 +54,7 @@ python main.py
 
 ### **Frontend**: Android application.
 
-The smartphone implementation of SmartFed uses the python cross platform library kivy (\url{https://kivy.org}). Our code is optimized to deploy the Android version. However, the application is cross platform and can also be deployed on IOS, Linux, macOS and Windows, with the appropriate modifications. The application works on Android version 7+ and only requires storage permission to access the smartphone local dataset.
+The smartphone implementation of HgO uses the python cross platform library kivy (\url{https://kivy.org}). Our code is optimized to deploy the Android version. However, the application is cross platform and can also be deployed on IOS, Linux, macOS and Windows, with the appropriate modifications. The application works on Android version 7+ and only requires storage permission to access the smartphone local dataset.
 
 #### Build the android application
 Install buildozer: https://buildozer.readthedocs.io/en/latest/installation.html
@@ -78,7 +80,7 @@ Once configured, the application will receive the selected model from the PS and
 
 #### Screenshots
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6tfqbz6bj30u01t0767.jpg" alt="welcome" width="25%"  /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3q2lptj30u01t0q8w.jpg" alt="configure" width="25%" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3ykheaj30u01t0tbh.jpg" alt="train" width="25%" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q43qb1gj60u01t0jvo02.jpg" alt="result" width="25%" />
+<img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3q2lptj30u01t0q8w.jpg" alt="configure" width="30%" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q3ykheaj30u01t0tbh.jpg" alt="train" width="30%" /><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gr6q43qb1gj60u01t0jvo02.jpg" alt="result" width="30%" />
 
 
 

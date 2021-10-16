@@ -8,7 +8,7 @@ from . import aggregators as GARs
 from . import message
 from .device_connection import DeviceConnection
 from .models import LogisticRegression
-from .utils import log, create_tcp_socket, input_size, load_params, Map, chunks, load_test_dataset
+from .utils import log, create_tcp_socket, input_size, load_params, Map, chunks, load_test_dataset, save
 
 
 class Server:
@@ -120,13 +120,15 @@ class Server:
             # broadcast stop training
             log('success', "Training finished")
             self.broadcast(message.stop_train(self))
+            save(f"DATA", self.performance)
 
     def end_round(self):
         self.params.rounds -= 1
         self.grads = []
         self.update_status()
         cost, acc = self.model.evaluate(self.X, self.y)
-        self.performance.append((cost, acc))
+        # self.performance.append((cost, acc))
+        self.performance.append(acc)
         log('result', f" {self.params.rounds} rounds to finish | Cost: {round(cost, 8)} | Accuracy: {round(acc, 8)}")
 
         return cost, acc

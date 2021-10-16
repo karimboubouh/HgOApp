@@ -5,10 +5,10 @@ from src.screens import *
 # Window.size = (336, 600)
 
 
-class SmartFedApp(MDApp):
+class HgOApp(MDApp):
 
     def build(self):
         return Builder.load_file('src/template.kv')
 
 
-SmartFedApp().run()
+HgOApp().run()

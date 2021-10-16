@@ -1,3 +1,4 @@
+import pickle
 import socket
 
 import joblib
@@ -145,3 +146,10 @@ def mnist(path, binary=True):
 def load_test_dataset(dataset):
     if dataset == "mnist":
         return mnist(path='./datasets/mnist.data')
+
+
+def save(filename, data):
+    with open(filename, 'wb') as fp:
+        pickle.dump(data, fp)
+        print("Writing to file", filename)
+    return
